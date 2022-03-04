@@ -3,9 +3,9 @@ import CryptoJS from "crypto-js";
 </script>
 <template>
   <div class="input">
-    <label for="">Message: <input v-model="message" type="text" /></label>
-    <label for="">Password: <input v-model="password" type="text" /></label>
-    <button @click="decrypt({ message })">Decrypt</button>
+    <label for="">Message: <input v-model="decmessage" type="text" /></label>
+    <label for="">Password: <input v-model="decpassword" type="text" /></label>
+    <button @click="decrypt({ decmessage })">Decrypt</button>
   </div>
   <h1>Decrypted Message:</h1>
   <h2>{{ decryptedMessage }}</h2>
@@ -14,16 +14,16 @@ import CryptoJS from "crypto-js";
 export default {
   data() {
     return {
-      message: "",
-      password: "",
+      decmessage: "",
+      decpassword: "",
       decryptedMessage: "",
     };
   },
   methods: {
     decrypt() {
       this.decryptedMessage = CryptoJS.AES.decrypt(
-        this.message,
-        this.password
+        this.decmessage,
+        this.decpassword
       ).toString(CryptoJS.enc.Utf8);
     },
   },
