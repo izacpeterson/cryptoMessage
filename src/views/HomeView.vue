@@ -1,7 +1,7 @@
 <template>
   <div class="input">
     <label for="">Message: <input v-model="message" type="text" /></label>
-    <label for="">Password: <input v-model="password" type="text" /></label>
+    <label for="">Key: <input v-model="password" type="text" /></label>
     <div class="buttons">
       <button @click="encrypt()">Encrypt</button>
       <button @click="decrypt()">Decrypt</button>
@@ -31,19 +31,13 @@ export default {
   },
   methods: {
     encrypt() {
-      this.encryptedMessage = CryptoJS.AES.encrypt(
-        this.message,
-        this.password
-      ).toString();
+      this.encryptedMessage = CryptoJS.AES.encrypt(this.message, this.password).toString();
       this.message = "";
       this.showEncryptMessage = true;
       this.showDecryptMessage = false;
     },
     decrypt() {
-      this.decryptedMessage = CryptoJS.AES.decrypt(
-        this.message,
-        this.password
-      ).toString(CryptoJS.enc.Utf8);
+      this.decryptedMessage = CryptoJS.AES.decrypt(this.message, this.password).toString(CryptoJS.enc.Utf8);
       this.showEncryptMessage = false;
       this.showDecryptMessage = true;
     },
