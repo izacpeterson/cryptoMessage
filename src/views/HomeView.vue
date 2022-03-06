@@ -29,15 +29,33 @@ export default {
       showDecryptMessage: false,
     };
   },
+  created() {
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
+    // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+    let value = params.msg; // "some_value"
+    console.log(value);
+    const search = " ";
+    const replaceWith = "+";
+    const result = value.split(search).join(replaceWith);
+    if (result) this.message = result;
+  },
   methods: {
     encrypt() {
-      this.encryptedMessage = CryptoJS.AES.encrypt(this.message, this.password).toString();
+      this.encryptedMessage = CryptoJS.AES.encrypt(
+        this.message,
+        this.password
+      ).toString();
       this.message = "";
       this.showEncryptMessage = true;
       this.showDecryptMessage = false;
     },
     decrypt() {
-      this.decryptedMessage = CryptoJS.AES.decrypt(this.message, this.password).toString(CryptoJS.enc.Utf8);
+      this.decryptedMessage = CryptoJS.AES.decrypt(
+        this.message,
+        this.password
+      ).toString(CryptoJS.enc.Utf8);
       this.showEncryptMessage = false;
       this.showDecryptMessage = true;
     },
